@@ -53,6 +53,11 @@
     
     const addChild = (c, where, head=false) => (where[head ? "head" : "body"] || where.documentElement).appendChild(c);
     
+    const graftConnectorScripts = [
+        "connectors/ConnectorEnvelope.js",
+        "connectors/ConnectorRegistry.js",
+        "connectors/dndbeyond/DndBeyondConnector.js"
+    ];
     const avttScripts = [
         // External Dependencies
         "jquery-3.6.0.min.js",
@@ -110,7 +115,8 @@
         "onedrive/onedrivemsal.js",
         "onedrive/onedrivepicker.js",
         "audio/index.mjs",
-    	"WeatherOverlay.js"
+        "WeatherOverlay.js",
+        ...graftConnectorScripts
     ]
     const avttCharacterScripts = [
         "Load.js", //load Loader on character sheets to support DBB Character Overhaul Extension
@@ -128,7 +134,8 @@
         "MessageBroker.js",
         "rpg-dice-roller.bundle.min.js",
         // AboveVTT files that execute when loaded        
-        "CharactersPage.js" // Make sure CharactersPage executes last
+        "CharactersPage.js", // Make sure CharactersPage executes after its legacy dependencies
+        ...graftConnectorScripts
     ];
     const avttStyles = [
         "abovevtt.css",
@@ -208,7 +215,8 @@
                   "ChatObserver.js",
                   "MonsterStatBlock.js",
                   "MonsterDice.js",
-                  "CampaignPage.mjs"
+                  "CampaignPage.mjs",
+                  ...graftConnectorScripts
               ] : pgType === "campaign" ? [    
                   "jquery-3.6.0.min.js",  
                   "environment.js",
@@ -220,7 +228,8 @@
                   "TokenCustomization.js",
                   "ScenesHandler.js",
                   "Settings.js",
-                  "CampaignPage.mjs"
+                  "CampaignPage.mjs",
+                  ...graftConnectorScripts
               ] : [
                     "Load.js",//load Loader on VTT full pages (for iframe inject - see below)
                     ...avttScripts,
