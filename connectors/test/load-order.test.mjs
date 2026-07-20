@@ -26,6 +26,7 @@ test('all DDB page modes register the same connector scripts after legacy depend
   const expectedOrder = [
     'connectors/ConnectorEnvelope.js',
     'connectors/ConnectorRegistry.js',
+    'connectors/dndbeyond/api.js',
     'connectors/dndbeyond/DndBeyondConnector.js',
   ];
   let previous = -1;
@@ -60,6 +61,7 @@ test('manifest exposes every injected connector page script', async () => {
   for (const script of [
     'connectors/ConnectorEnvelope.js',
     'connectors/ConnectorRegistry.js',
+    'connectors/dndbeyond/api.js',
     'connectors/dndbeyond/DndBeyondConnector.js',
   ]) {
     assert.ok(resources.includes(script), `${script} is not web-accessible`);

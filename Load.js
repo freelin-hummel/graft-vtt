@@ -56,6 +56,7 @@
     const graftConnectorScripts = [
         "connectors/ConnectorEnvelope.js",
         "connectors/ConnectorRegistry.js",
+        "connectors/dndbeyond/api.js",
         "connectors/dndbeyond/DndBeyondConnector.js"
     ];
     const avttScripts = [

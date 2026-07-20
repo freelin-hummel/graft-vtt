@@ -158,6 +158,23 @@ class DDBApi {
   }
 
   static async fetchEncounter(id) {
+    const api = window.DndBeyondApi;
+    const registry = window.GraftConnectorRegistry;
+    const connectorEnabled = api && registry?.get('dndbeyond') && registry.isEnabled('dndbeyond');
+    if (connectorEnabled) {
+      const legacyUrl = `https://encounter-service.dndbeyond.com/v1/encounters/${id}`;
+      let response;
+      let requestMatches = false;
+      const normalized = await api.fetchEncounter(id, async connectorUrl => {
+        requestMatches = connectorUrl === legacyUrl;
+        response = await DDBApi.fetchJsonWithToken(connectorUrl);
+        console.debug("DDBApi.fetchEncounter response", response);
+        return response;
+      });
+      api.recordCompatibilityCheck(requestMatches, normalized === response.data);
+      return normalized;
+    }
+
     if (typeof id !== "string" || id.length <= 1) {
       throw new Error(`Invalid id: ${id}`);
     }

@@ -83,6 +83,11 @@
     if (typeof win.DM === 'boolean') snapshot.role = win.DM ? 'dm' : 'player';
     snapshot.messageBrokerAvailable = win.MB !== undefined && win.MB !== null;
 
+    // Include DndBeyondApi aggregate diagnostics counters when available
+    if (typeof win.DndBeyondApi !== 'undefined' && typeof win.DndBeyondApi.diagnostics === 'function') {
+      snapshot.apiDiagnostics = win.DndBeyondApi.diagnostics();
+    }
+
     return Object.freeze(snapshot);
   }
 
